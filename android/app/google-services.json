@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "212003896012",
+    "project_id": "aryago-login-app",
+    "storage_bucket": "aryago-login-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212003896012:android:024c5b1c7c65c861102069",
+        "android_client_info": {
+          "package_name": "com.example.aryago_login_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212003896012-obc4mmufvfpjt049237r45r5kv5t26d3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aryago_login_app",
+            "certificate_hash": "a58e1fc6047119f6aca20e966ee3861a8e7f5f4b"
+          }
+        },
+        {
+          "client_id": "212003896012-rrkst5viism80ht7ui9snpeblk45vend.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-dXJTHRBpGVkaSjS5WVjJGu-4lm3Z65M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212003896012-rrkst5viism80ht7ui9snpeblk45vend.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
