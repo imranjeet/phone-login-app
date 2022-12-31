@@ -105,7 +105,7 @@ class _MyPhoneState extends State<MyPhone> {
                                         int? resendToken) {
                                       MyPhone.verificationId = verificationId;
                                       Navigator.pushNamed(context, 'verify')
-                                          .whenComplete(() {
+                                          .then((v) {
                                         setState(() {
                                           isLoading = false;
                                         });
