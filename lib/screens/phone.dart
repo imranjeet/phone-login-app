@@ -13,7 +13,6 @@ class MyPhone extends StatefulWidget {
 class _MyPhoneState extends State<MyPhone> {
   bool isLoading = false;
   var phoneNumber = "";
-  
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class _MyPhoneState extends State<MyPhone> {
                 "Let's get started..",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
               ),
-             
+
               const SizedBox(
                 height: 30,
               ),
@@ -56,7 +55,6 @@ class _MyPhoneState extends State<MyPhone> {
                       width: 40,
                       height: 40,
                     ),
-                    
                     const SizedBox(
                       width: 10,
                     ),
@@ -106,7 +104,12 @@ class _MyPhoneState extends State<MyPhone> {
                                     codeSent: (String verificationId,
                                         int? resendToken) {
                                       MyPhone.verificationId = verificationId;
-                                      Navigator.pushNamed(context, 'verify');
+                                      Navigator.pushNamed(context, 'verify')
+                                          .whenComplete(() {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                      });
                                     },
                                     codeAutoRetrievalTimeout:
                                         (String verificationId) {},

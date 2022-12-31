@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final _firestore = FirebaseFirestore.instance;
   @override
   void initState() {
     super.initState();
@@ -19,20 +21,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkLoginState() async {
     FirebaseAuth auth = FirebaseAuth.instance;
-    auth.authStateChanges().listen((User? user) {
+    auth.authStateChanges().listen((User? user) async {
       if (user == null) {
-        print('User is currently signed out!');
+        // print('User is currently signed out!');
         Timer(
             const Duration(seconds: 2),
             () => Navigator.pushNamedAndRemoveUntil(
                 context, 'phone', ((route) => false)));
       } else {
-        print('User is signed in!');
+        // print('User is signed in!');
         if (mounted) {
-          Timer(
-              const Duration(seconds: 2),
-              () => Navigator.pushNamedAndRemoveUntil(
-                  context, 'home', ((route) => false)));
+          try {
+            final User? user = auth.currentUser;
+            DocumentSnapshot userData =
+                await _firestore.collection("users").doc(user!.uid).get();
+            if (userData.exists) {
+              Timer(
+                  const Duration(seconds: 2),
+                  () => Navigator.pushNamedAndRemoveUntil(
+                      context, 'home', ((route) => false)));
+            } else {
+              Timer(
+                  const Duration(seconds: 2),
+                  () => Navigator.pushNamedAndRemoveUntil(
+                      context, 'uploadUserData', ((route) => false)));
+            }
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Something went wrong!"),
+              ),
+            );
+          }
+          // Timer(
+          //     const Duration(seconds: 2),
+          //     () => Navigator.pushNamedAndRemoveUntil(
+          //         context, 'home', ((route) => false)));
         }
       }
     });
@@ -45,9 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.height * 0.05,
-          // ),
+          
           Padding(
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
